@@ -23,7 +23,7 @@ let finalPage = false;
 let filterValue = "";
 let stringSearch = "";
 let countriesCodeName = {};
-let sessionState = sessionStorage.getItem("state");
+// let sessionState = sessionStorage.getItem("state");
 
 const resetPagination = () => {
     currentIndex = 0;
@@ -31,51 +31,6 @@ const resetPagination = () => {
     counter = 1;
     totalPages = Math.ceil(countries.length / 8);
 }
-
-
-// const backState = () => {
-
-//     let state = {
-//         currentIndex,
-//         limitElements,
-//         counter,
-//         totalPages,
-//         filterBoolean,
-//         searchBoolean,
-//         filterValue,
-//         stringSearch
-//     }
-
-//     return state;
-// }
-
-// const setBackState = () => {
-
-//     if (sessionState === null)
-//         return;
-
-//     let tempState;
-//     tempState = JSON.parse(sessionState);
-
-//     console.log(
-//         tempState
-//     );
-
-//     currentIndex = tempState.currentIndex;
-//     limitElements = tempState.limitElements;
-//     counter = tempState.counter;
-//     totalPages = tempState.totalPages;
-
-//     if (tempState.filterBoolean) {
-//         filterValue = tempState.filterValue;
-//         filterCountries(filterValue);
-//     }
-
-//     if (tempState.searchBoolean) {
-//         stringSearch = tempState.stringSearch;
-//         searchCountries();
-//     }
-// }
 
 export const loadCountries = async (e) => {
 
@@ -202,7 +157,7 @@ docu.addEventListener("click", e => {
         )
         location.href = `../pages/detail.html?=name=${nameCountry}`;
         // let stateVariables = backState();
-        sessionStorage.setItem("state", JSON.stringify(stateVariables));
+        // sessionStorage.setItem("state", JSON.stringify(stateVariables));
     }
 
     if (e.target === $buttonPrev) {
