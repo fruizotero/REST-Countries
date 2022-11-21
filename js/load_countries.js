@@ -33,52 +33,49 @@ const resetPagination = () => {
 }
 
 
-const backState = () => {
+// const backState = () => {
 
-    let state = {
-        currentIndex,
-        limitElements,
-        counter,
-        totalPages,
-        filterBoolean,
-        searchBoolean,
-        filterValue,
-        stringSearch
-    }
+//     let state = {
+//         currentIndex,
+//         limitElements,
+//         counter,
+//         totalPages,
+//         filterBoolean,
+//         searchBoolean,
+//         filterValue,
+//         stringSearch
+//     }
 
-    return state;
-}
+//     return state;
+// }
 
-const setBackState = () => {
+// const setBackState = () => {
 
-    if (sessionState === null)
-        return;
+//     if (sessionState === null)
+//         return;
 
-    let tempState;
-    tempState = JSON.parse(sessionState);
+//     let tempState;
+//     tempState = JSON.parse(sessionState);
 
-    console.log(
-        tempState
-    );
+//     console.log(
+//         tempState
+//     );
 
-    currentIndex = tempState.currentIndex;
-    limitElements = tempState.limitElements;
-    counter = tempState.counter;
-    totalPages = tempState.totalPages;
+//     currentIndex = tempState.currentIndex;
+//     limitElements = tempState.limitElements;
+//     counter = tempState.counter;
+//     totalPages = tempState.totalPages;
 
-    if (tempState.filterBoolean) {
-        filterValue = tempState.filterValue;
-        filterCountries(filterValue);
-    }
+//     if (tempState.filterBoolean) {
+//         filterValue = tempState.filterValue;
+//         filterCountries(filterValue);
+//     }
 
-    if (tempState.searchBoolean) {
-        stringSearch = tempState.stringSearch;
-        searchCountries();
-    }
-
-
-
-}
+//     if (tempState.searchBoolean) {
+//         stringSearch = tempState.stringSearch;
+//         searchCountries();
+//     }
+// }
 
 export const loadCountries = async (e) => {
 
@@ -204,7 +201,7 @@ docu.addEventListener("click", e => {
             "country", JSON.stringify($details[0])
         )
         location.href = `../pages/detail.html?=name=${nameCountry}`;
-        let stateVariables = backState();
+        // let stateVariables = backState();
         sessionStorage.setItem("state", JSON.stringify(stateVariables));
     }
 
