@@ -155,7 +155,7 @@ docu.addEventListener("click", e => {
         localStorage.setItem(
             "country", JSON.stringify($details[0])
         )
-        location.href = `../pages/detail.html?=name=${nameCountry}`;
+        location.href = `pages/detail.html?=name=${nameCountry}`;
         // let stateVariables = backState();
         // sessionStorage.setItem("state", JSON.stringify(stateVariables));
     }
