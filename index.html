@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/icon/icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/_share.css">
+    <title>Countries of the World</title>
+</head>
+
+<body>
+    <header class="header">
+        <h1 class="header__title">
+            Where in the world?
+        </h1>
+        <div class="header__mode">
+            <div class="header__icon">
+                <img src="assets/img/dark_mode.svg" alt="Dark mode icon" class="header__image">
+            </div>
+            <p class="header__text">
+                Dark Mode
+            </p>
+        </div>
+    </header>
+    <main class="main">
+       
+        <section class="search-filter">
+            <div class="search">
+                <div class="search__icon">
+                    <img src="assets/img/search.svg" alt="Search icon" class="search__image">
+                </div>
+                <input class="input__search" type="text" placeholder="Search for a country...">
+            </div>
+            <div class="filter">
+                <div class="filter__select">
+                    <p class="filter__text">
+                        Filter by Region
+                    </p>
+                    <div class="filter__expand"></div>
+                    <div class="filter__options">
+                        <div class="filter__option">
+                            <label class="filter__label" for="africa">Africa</label>
+                            <input type="radio" name="region" value="africa" id="africa" class="filter__radio">
+                        </div>
+                        <div class="filter__option">
+                            <label class="filter__label" for="america">America</label>
+                            <input type="radio" name="region" value="americas" id="america" class="filter__radio">
+                        </div>
+                        <div class="filter__option">
+                            <label class="filter__label" for="asia">Asia</label>
+                            <input type="radio" name="region" value="asia" id="asia" class="filter__radio">
+                        </div>
+                        <div class="filter__option">
+                            <label class="filter__label" for="europe">Europe</label>
+                            <input type="radio" name="region" value="europe" id="europe" class="filter__radio">
+                        </div>
+                        <div class="filter__option">
+                            <label class="filter__label" for="oceania">Oceania</label>
+                            <input type="radio" name="region" value="oceania" id="oceania" class="filter__radio">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <section class="countries">
+            <!-- <article class="country">
+                <div class="country__figure">
+                    <img src="https://flagcdn.com/az.svg" alt="Image of the country flag" class="country__image">
+                </div>
+                <div class="country__info">
+                    <p class="country__name">Afghanistan</p>
+                    <p class="country__info__data">
+                        <span class="data__title">Population:</span>
+                        <span class="country__population">40218234</span>
+                    </p>
+                    <p class="country__info__data">
+                        <span class="data__title">Region:</span>
+                        <span class="country__region">Asia</span>
+                    </p>
+                    <p class="country__info__data">
+                        <span class="data__title">Capital:</span>
+                        <span class="country__capital">Kabul</span>
+                    </p>
+
+                </div>
+            </article> -->
+
+        </section>
+        <div class="pagination">
+            <div class="pagination__buttons">
+                <button class="pagination__previous pagination__button">Prev</button>
+                <div class="pagination__numbers">
+
+                </div>
+                <button class="pagination__next pagination__button">Next</button>
+            </div>
+            <p class="pagination__text">paginas texto</p>
+        </div>
+    </main>
+
+    <template class="template-country">
+        <article class="country">
+            <div class="country__figure">
+                <img src="https://flagcdn.com/az.svg" alt="Image of the country flag" class="country__image">
+            </div>
+            <div class="country__info">
+                <p class="country__name">Afghanistan</p>
+                <p class="country__info__data">
+                    <span class="data__title">Population:</span>
+                    <span class="country__population">40218234</span>
+                </p>
+                <p class="country__info__data">
+                    <span class="data__title">Region:</span>
+                    <span class="country__region">Asia</span>
+                </p>
+                <p class="country__info__data">
+                    <span class="data__title">Capital:</span>
+                    <span class="country__capital">Kabul</span>
+                </p>
+
+            </div>
+        </article>
+    </template>
+    <!-- <script src="js/load_countries.js" type="module"></script> -->
+    <script src="js/index.js" type="module"></script>
+</body>
+
+</html>
