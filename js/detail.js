@@ -57,7 +57,7 @@ const loadDetails = async () => {
     let countryName = location.search.replace("?=name=", "");
 
     country = await loadCountrie(countryName.replace(/%20/ig, " "), "", true);
-    
+
     $flag.setAttribute("src", country.flags.svg)
     $name.textContent = country.name;
     $nativeName.textContent = country.nativeName;
@@ -113,6 +113,15 @@ d.addEventListener("DOMContentLoaded", e => {
 });
 
 d.addEventListener("click", e => {
+
+    console.log(
+        e.target
+    );
+
+    if (e.target.matches(".back__text")) {
+        history.back();
+    }
+
     if (e.target.matches(".details__border")) {
         let nameCountry = e.target.dataset.name;
         location.href = `../pages/detail.html?=name=${nameCountry}`;
