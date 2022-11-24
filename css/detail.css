@@ -3,12 +3,13 @@ html {
   font-family: 'Nunito Sans', sans-serif;
   font-size: 16px;
   scroll-behavior: smooth;
-  --dark-mode-elements: #2b3945;
-  --dark-mode-background: #202c37;
-  --light-mode-text: #111517;
-  --light-mode-input: #858585;
-  --light-mode-background: #fafafa;
-  --dark-mode-text-light-mode-elements: #ffffff;
+
+  --background-color: #fafafa;
+  --element-color: #ffffff;
+  --text-color: #111517;
+  --input-color: #858585;
+  --option-filter:#85858520;
+  --shadow-color:#00000020;
 }
 
 *,
@@ -35,8 +36,8 @@ body {
 
   width: 100%;
   min-height: 100vh;
-  color: var(--light-mode-text);
-  background-color: var(--light-mode-background);
+  color: var(--text-color);
+  background-color: var(--background-color);
 }
 
 img,
@@ -54,8 +55,8 @@ video {
   min-width: max-content;
   width: max-content;
   margin: 2rem 0rem 4rem 5%;
-  background-color: var(--dark-mode-text-light-mode-elements);
-  box-shadow: -0.1rem 0.1rem 0.5rem 0rem #00000020;
+  background-color: var(--element-color);
+  box-shadow: -0.1rem 0.1rem 0.5rem 0rem var(--shadow-color);
   border-radius: 0.25rem;
 
 
@@ -153,12 +154,16 @@ video {
 
 .details__border {
   border: none;
-  color: var(--light-mode-text);
+  color: var(--text-color);
   padding: 0.5rem 1.5rem;
   font-size: 0.9rem;
-  background-color: var(--dark-mode-text-light-mode-elements);
-  box-shadow: -0.1rem 0.1rem 0.5rem 0rem #00000020;
+  background-color: var(--element-color);
+  box-shadow: -0.1rem 0.1rem 0.5rem 0rem var(--shadow-color);
   border-radius: 0.2rem;
+}
+
+.color-img{
+  filter: brightness(0) invert(1);
 }
 
 @media screen and (min-width:37.5em) {
@@ -215,5 +220,7 @@ video {
   .details__border:hover{
     cursor: pointer;
   }
+
+
 
 }

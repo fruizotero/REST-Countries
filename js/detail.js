@@ -1,5 +1,6 @@
 import { loadHeader } from "../js/load_header.js";
 import { Country } from "./model_country.js";
+import { setTheme } from "../js/theme.js";
 
 
 const d = document;
@@ -106,10 +107,17 @@ const loadDetails = async () => {
     console.log(country);
 }
 
-d.addEventListener("DOMContentLoaded", e => {
+d.addEventListener("DOMContentLoaded", async (e) => {
     countriesCode = JSON.parse(sessionStorage.getItem("countriescode"));
-    loadHeader();
-    loadDetails();
+    await loadHeader();
+    await loadDetails();
+
+    let theme = localStorage.getItem("theme");
+    if (theme !== null) {
+        let $back = d.querySelector(".back__text");
+        let $moon = d.querySelector(".header__image");
+        setTheme(theme, [$back, $moon]);
+    }
 });
 
 d.addEventListener("click", e => {
