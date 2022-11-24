@@ -3,12 +3,6 @@ html {
   font-family: 'Nunito Sans', sans-serif;
   font-size: 14px;
   scroll-behavior: smooth;
-  --dark-mode-elements: #2b3945;
-  --dark-mode-background: #202c37;
-  --light-mode-text: #111517;
-  --light-mode-input: #858585;
-  --light-mode-background: #fafafa;
-  --dark-mode-text-light-mode-elements: #ffffff;
 
   --background-color: #fafafa;
   --element-color: #ffffff;

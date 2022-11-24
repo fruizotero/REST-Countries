@@ -23,7 +23,6 @@ let finalPage = false;
 let filterValue = "";
 let stringSearch = "";
 let countriesCodeName = {};
-// let sessionState = sessionStorage.getItem("state");
 
 const resetPagination = () => {
     currentIndex = 0;
@@ -48,7 +47,6 @@ export const loadCountries = async (e) => {
 
         resetPagination();
         showCountries();
-        // setBackState();
 
         for (let index = 0; index < countries.length; index++) {
             let name = countries[index].name;
@@ -108,7 +106,6 @@ export const searchCountries = (e) => {
     }
 
     countries = countriesFetch.filter(el => el.name.toLocaleLowerCase().includes(stringSearch.toLowerCase()));
-    // if (!(sessionState))
     resetPagination();
     showCountries()
 
@@ -137,8 +134,6 @@ docu.addEventListener("click", e => {
 
     const $filterRadio = docu.querySelector(".filter__radio:checked");
 
-    // const $country = docu.querySelector("");
-
     if (e.target === $filterText) {
         $filterOptions.classList.toggle('show-filter');
     }
@@ -156,8 +151,6 @@ docu.addEventListener("click", e => {
             "country", JSON.stringify($details[0])
         )
         location.href = `pages/detail.html?=name=${nameCountry}`;
-        // let stateVariables = backState();
-        // sessionStorage.setItem("state", JSON.stringify(stateVariables));
     }
 
     if (e.target === $buttonPrev) {
@@ -187,8 +180,4 @@ docu.addEventListener("click", e => {
         }
     }
 
-});
-
-window.addEventListener('popstate', function (event) {
-    alert('you click on back or forward button');
 });

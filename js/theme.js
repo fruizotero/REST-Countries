@@ -21,7 +21,6 @@ const darkMode = {
 
 const setProperties = (properties = {}) => {
     Object.entries(properties).forEach(entry => {
-        // console.log(entry);
         d.documentElement.style.setProperty(entry[0], entry[1]);
     })
 }
