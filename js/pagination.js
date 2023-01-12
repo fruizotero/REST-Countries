@@ -2,31 +2,62 @@ const d = document;
 
 
 
-// let maxElementByPage = 5;
-// let indexBegin = 0;
-// let indexFinal = maxElementByPage;
-// let counter = 1;
-
 export class Pagination {
 
-
-    constructor() {
-        this.indexBegin = 0;
-        this.indexFinal = 5;
-        this.maxElementByPage = 5;
-        this.counter = 1;
+    /**
+     * 
+     * @param {int} indexBegin Índice desde donde se comienza el bucle
+     * @param {int} indexFinal Índice donde termina el bucle
+     * @param {int} maxElementByPage Cantidad de elementos renderizados
+     * @param {int} counter Contador de las páginas
+     * @param {string} classButtonLeft Clase del html del botón atrás
+     * @param {string} classButtonRight Clase del html del botón adelante
+     * @param {string} classPaginationText Clase del html para indicar el número de página
+     * @param {[]} arrayElements Son los elementos que se renderizarán
+     * @param {function} functionRender  Función que se encarga de renderizar los datos del array
+     */
+    constructor(
+        indexBegin = 0,
+        indexFinal = 5,
+        maxElementByPage = 5,
+        counter = 1,
+        classButtonLeft,
+        classButtonRight,
+        classPaginationText,
+        arrayElements = [],
+        functionRender = () => { }
+    ) {
+        this.indexBegin = indexBegin;
+        this.indexFinal = indexFinal;
+        this.maxElementByPage = maxElementByPage;
+        this.counter = counter;
         this.totalPages = 0;
-        this.arrayElements = [];
+        this.classButtonLeft = classButtonLeft;
+        this.classButtonRight = classButtonRight;
+        this.classPaginationText = classPaginationText;
+        this.arrayElements = arrayElements;
+        this.functionRender = functionRender;
     }
-    paginationText(currentPage, totalPages, classPaginationText) {
+    /**
+     * 
+     * @param {int} currentPage Página en la que se encuentra el usuario
+     * @param {int} totalPages Cantidad de páginas totales
+     *
+     */
+    paginationText(currentPage, totalPages) {
 
-        d.querySelector(classPaginationText).textContent = `Página ${currentPage} de ${totalPages}`;
+        d.querySelector(this.classPaginationText).textContent = `Página ${currentPage} de ${totalPages}`;
     }
-
-    elementsPAge(indexBegin, indexFinal, arrayElements) {
+    /**
+     * 
+     * @param {int} indexBegin 
+     * @param {int} indexFinal 
+     * @param {int} arrayElements 
+     * @returns Devuelve un array de elementos según la indicación de los parámetros
+     */
+    elementsPage(indexBegin, indexFinal, arrayElements) {
 
         let elementsPage = [];
-
         for (let index = indexBegin; index < indexFinal; index++) {
 
             elementsPage.push(arrayElements[index]);
@@ -35,199 +66,97 @@ export class Pagination {
         return elementsPage;
 
     }
-
-    setValues(indexBegin, indexFinal, maxElementByPage, counter, arrayElements) {
+    /**
+     * 
+     * @param {*} indexBegin 
+     * @param {*} indexFinal 
+     * @param {*} maxElementByPage 
+     * @param {*} counter 
+     * @param {*} arrayElements 
+     * Función encargada de actualizar los valores cuando se entrega un nuevo array
+     */
+    setValues(indexBegin = 0, indexFinal = 8, maxElementByPage = 8, counter = 1, arrayElements = []) {
         this.indexBegin = indexBegin;
-        this.indexFinal = indexFinal;
-        this.maxElementByPage = maxElementByPage;
+        this.indexFinal = indexFinal > arrayElements.length ? arrayElements.length : indexFinal;
+        this.maxElementByPage = maxElementByPage > arrayElements.length ? arrayElements.length : maxElementByPage;
         this.counter = counter;
         this.totalPages = Math.ceil(arrayElements.length / maxElementByPage);
         this.arrayElements = arrayElements;
     }
 
+    /**
+     * 
+     * @param {[]} arrayElements Array de elementos que se paginara
+     * @param {int} elementsByPage Cantidad de elementos a mostrar por página. Éste será el nuevo valor en adelante
+     */
+    updatePagination(arrayElements, elementsByPage = 8) {
+        this.arrayElements=arrayElements;
+        this.setValues(
+            0,
+            this.arrayElements.length < elementsByPage ? this.arrayElements.length : elementsByPage,
+            this.arrayElements.length < elementsByPage ? this.arrayElements.length : elementsByPage,
+            1,
+            arrayElements);
+        this.functionRender(this.elementsPage(this.indexBegin, this.indexFinal, this.arrayElements));
+        this.paginationText(this.counter, this.totalPages, this.classPaginationText);
+    }
+
+    /**
+     * Función encargada de la paginación. Tiene los eventos de Click para el botón atrás y adelante.
+     * Sólo utilizarla en el DOMContentLoaded porque causa problemas si se vuelve a invocar, si se ha de actualizar el array, utilizar la función updatePagination
+     */
     pagination(
-        arrayElements = [],
-        classButtonLeft = "",
-        classButtonRight = "",
-        classPaginationText = "",
-        callback = () => { }
     ) {
-        this.arrayElements = arrayElements;
+        console.log(this.indexFinal);
         this.totalPages = Math.ceil(this.arrayElements.length / this.maxElementByPage);
 
-        callback(this.elementsPAge(this.indexBegin, this.indexFinal, this.arrayElements));
-        this.paginationText(this.counter, this.totalPages, classPaginationText);
+        this.functionRender(this.elementsPage(this.indexBegin, this.indexFinal, this.arrayElements));
+        this.paginationText(this.counter, this.totalPages, this.classPaginationText);
 
         d.addEventListener("click", e => {
-
-            if (e.target.matches(classButtonLeft)) {
-                console.log(this.arrayElements.length);
+            if (e.target.matches(this.classButtonLeft)) {
                 if (this.counter > 1) {
                     this.counter--;
                     if (!(this.counter == this.totalPages - 1)) {
                         this.indexBegin -= this.maxElementByPage;
                         this.indexFinal -= this.maxElementByPage;
-                        callback(this.elementsPAge(this.indexBegin, this.indexFinal, this.arrayElements));
+                        this.functionRender(this.elementsPage(this.indexBegin, this.indexFinal, this.arrayElements));
                     } else {
                         this.indexFinal = this.indexBegin;
                         this.indexBegin -= this.maxElementByPage;
-                        callback(
-                            this.elementsPAge(this.indexBegin, this.indexFinal, this.arrayElements)
+                        this.functionRender(
+                            this.elementsPage(this.indexBegin, this.indexFinal, this.arrayElements)
                         )
                     }
                 }
                 scrollTo(0, 0);
-                this.paginationText(this.counter, this.totalPages, classPaginationText);
+                this.paginationText(this.counter, this.totalPages, this.classPaginationText);
             }
 
-            if (e.target.matches(classButtonRight)) {
-                console.log(this.arrayElements.length);
-                console.log(this.totalPages);
+            if (e.target.matches(this.classButtonRight)) {
                 if (this.counter < this.totalPages) {
 
                     this.counter++;
                     if (!(this.counter === this.totalPages)) {
                         this.indexBegin += this.maxElementByPage;
                         this.indexFinal += this.maxElementByPage;
-                        callback(this.elementsPAge(this.indexBegin, this.indexFinal, this.arrayElements));
+                        this.functionRender(this.elementsPage(this.indexBegin, this.indexFinal, this.arrayElements));
                     } else {
 
                         this.indexBegin = this.indexFinal;
                         this.indexFinal = this.arrayElements.length;
 
-                        console.log(this.indexBegin);
-                        console.log(this.indexFinal);
-                        callback(
-                            this.elementsPAge(this.indexBegin, this.indexFinal, this.arrayElements)
+                        this.functionRender(
+                            this.elementsPage(this.indexBegin, this.indexFinal, this.arrayElements)
                         );
                     }
                 }
                 scrollTo(0, 0);
-                this.paginationText(this.counter, this.totalPages, classPaginationText);
+                this.paginationText(this.counter, this.totalPages, this.classPaginationText);
             }
 
-
-
-
         });
-
-
-
 
     };
 
 }
-
-// const paginationText = (currentPage, totalPages, classPaginationText) => {
-
-//     d.querySelector(classPaginationText).textContent = `Página ${currentPage} de ${totalPages}`;
-// }
-
-// /**
-//  *
-//  * @param {int} indexBegin Indice de inicio del bucle
-//  * @param {int} indexFinal Indice final del bucle
-//  * @param {[]} arrayElements Array de donde se extraeran los elementos a devolver
-//  * @returns Devuelve un array con los elementos indicados según los índices
-//  */
-
-// const elementsPAge = (indexBegin, indexFinal, arrayElements) => {
-
-//     let elementsPAge = [];
-
-//     for (let index = indexBegin; index < indexFinal; index++) {
-
-//         elementsPAge.push(arrayElements[index]);
-//     }
-
-//     return elementsPAge;
-
-// }
-
-// /**
-//  *
-//  * @param {[]} arrayElements Array con los elementos a paginar
-//  * @param {string} classButtonLeft Clase del DOM con el botón hacia la izquierda
-//  * @param {string} classButtonRight Clase del DOM con el botón hacia la derecha
-//  * @param {function} callback Función que se encargará de la renderización de los elementos, recibe el array indicado según los índices.
-//  */
-// export const pagination = (
-//     arrayElements = [],
-//     classButtonLeft = "",
-//     classButtonRight = "",
-//     classPaginationText = "",
-//     callback = () => { },
-//     options = {
-//         "maxElementByPage": 5,
-//         "indexBegin": 0,
-//         "indexFinal": 5,
-//         "counter": 1
-//     }
-// ) => {
-
-//     let maxElementByPage = options["maxElementByPage"];
-//     let indexBegin = options["indexBegin"];
-//     let indexFinal = options["indexFinal"];
-//     let counter = options["counter"];
-
-//     let totalPages = Math.ceil(arrayElements.length / maxElementByPage);
-
-//     callback(elementsPAge(indexBegin, indexFinal, arrayElements));
-//     paginationText(counter, totalPages, classPaginationText);
-
-//     d.addEventListener("click", e => {
-
-//         if (e.target.matches(classButtonLeft)) {
-//             console.log(arrayElements.length);
-//             if (counter > 1) {
-//                 counter--;
-//                 if (!(counter == totalPages - 1)) {
-//                     indexBegin -= maxElementByPage;
-//                     indexFinal -= maxElementByPage;
-//                     callback(elementsPAge(indexBegin, indexFinal, arrayElements));
-//                 } else {
-//                     indexFinal = indexBegin;
-//                     indexBegin -= maxElementByPage;
-//                     callback(
-//                         elementsPAge(indexBegin, indexFinal, arrayElements)
-//                     )
-//                 }
-//             }
-//             scrollTo(0, 0);
-//             paginationText(counter, totalPages, classPaginationText);
-//         }
-
-//         if (e.target.matches(classButtonRight)) {
-//             console.log(arrayElements.length);
-//             if (counter < totalPages) {
-
-//                 counter++;
-//                 if (!(counter === totalPages)) {
-//                     indexBegin += maxElementByPage;
-//                     indexFinal += maxElementByPage;
-//                     callback(elementsPAge(indexBegin, indexFinal, arrayElements));
-//                 } else {
-
-//                     indexBegin = indexFinal;
-//                     indexFinal = arrayElements.length;
-
-//                     console.log(indexBegin);
-//                     console.log(indexFinal);
-//                     callback(
-//                         elementsPAge(indexBegin, indexFinal, arrayElements)
-//                     );
-//                 }
-//             }
-//             scrollTo(0, 0);
-//             paginationText(counter, totalPages, classPaginationText);
-//         }
-
-
-
-
-//     });
-
-
-
-
-// };
